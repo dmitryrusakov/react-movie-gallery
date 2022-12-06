@@ -1,0 +1,12 @@
+.genre-item {
+  padding: 20px;
+  cursor: pointer;
+}
+.genre-item:hover {
+  background-color: lightseagreen;
+  color: white;
+}
+.genre-item.active {
+  background-color: teal;
+  color: white;
+}
