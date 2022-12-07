@@ -1,9 +1,10 @@
+import React from 'react';
 import './App.css';
 import Counter from './counter/Counter';
 import Search from './search/Search';
 import GenreToggle from './toggle/GenreToggle';
 
-function App() {
+export default function App() {
   return (
     <div className="App">
       <Counter />
@@ -14,5 +15,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
