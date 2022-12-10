@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Grid} from '@mui/material';
 import MovieCard from './MovieCard';
 import {sampleMovies as movies} from '../../../models/movie';
 import {MovieModel} from '../../../models/movie';
 import MovieDetailsDialog, {
   MovieDetailsDialogMode,
-} from '../../movie-details/MovieDetailsDialog';
+} from '../../movie-details-dialog/MovieDetailsDialog';
 import DeleteMovieDialog from './DeleteMovieDialog';
 
 /**
@@ -19,69 +19,60 @@ enum DialogMode {
   DELETE = 3,
 }
 
-interface IState {
-  dialogMode: DialogMode;
-  /** Movie to provide into a dialog for editing or deletion. */
-  movieForDialog: MovieModel | null;
-}
-
-export default class Gallery extends React.Component<{}, IState> {
-  state = {
-    dialogMode: DialogMode.HIDDEN,
-    movieForDialog: null,
+export default function Gallery() {
+  const [dialogMode, setDialogMode] = useState(DialogMode.HIDDEN);
+  const [movieForDialog, setMovieForDialog] = useState<MovieModel>();
+  const saveMovie = (movie: MovieModel) => {
+    console.info('Save movie:', movie);
+    hideDialog();
   };
-  saveMovie = (movieData: MovieModel) => {
-    console.info('Save movie:', movieData);
-    this.hideDialog();
+  const deleteMovie = (movie: MovieModel) => {
+    console.info('Delete movie:', movie);
+    hideDialog();
   };
-  deleteMovie = (movieData: MovieModel) => {
-    console.info('Delete movie:', movieData);
-    this.hideDialog();
-  };
-  openDetails = (data: MovieModel) => {
-    this.setState({dialogMode: DialogMode.DETAILS, movieForDialog: data});
+  const openDetails = (data: MovieModel) => {
+    setDialogMode(DialogMode.DETAILS);
+    setMovieForDialog(data);
   };
   /** Hides both Delete and Details dialogs. */
-  openDeleteDialog = (data: MovieModel) => {
-    this.setState({dialogMode: DialogMode.DELETE, movieForDialog: data});
+  const openDeleteDialog = (data: MovieModel) => {
+    setDialogMode(DialogMode.DELETE);
+    setMovieForDialog(data);
   };
-  hideDialog = () => {
-    this.setState({dialogMode: DialogMode.HIDDEN});
+  const hideDialog = () => {
+    setDialogMode(DialogMode.HIDDEN);
   };
-  render() {
-    return (
-      <>
-        <Grid container spacing={4}>
-          {movies.map((movieData) => (
-            <Grid item xs={6} sm={4} md={3} lg={2} key={movieData.id}>
-              <MovieCard
-                movie={movieData}
-                openDetails={this.openDetails}
-                openDeleteDialog={this.openDeleteDialog}
-              />
-            </Grid>
-          ))}
-        </Grid>
-        {this.state.dialogMode === DialogMode.DETAILS &&
-          this.state.movieForDialog && (
-            <MovieDetailsDialog
-              movie={this.state.movieForDialog}
-              mode={MovieDetailsDialogMode.EDIT}
-              open={this.state.dialogMode === DialogMode.DETAILS}
-              submit={this.saveMovie}
-              close={this.hideDialog}
+
+  return (
+    <>
+      <Grid container spacing={4}>
+        {movies.map((movie) => (
+          <Grid item xs={6} sm={4} md={3} lg={2} key={movie.id}>
+            <MovieCard
+              movie={movie}
+              openDetails={openDetails}
+              openDeleteDialog={openDeleteDialog}
             />
-          )}
-        {this.state.dialogMode === DialogMode.DELETE &&
-          this.state.movieForDialog && (
-            <DeleteMovieDialog
-              movie={this.state.movieForDialog}
-              open={this.state.dialogMode === DialogMode.DELETE}
-              submit={this.deleteMovie}
-              close={this.hideDialog}
-            />
-          )}
-      </>
-    );
-  }
+          </Grid>
+        ))}
+      </Grid>
+      {dialogMode === DialogMode.DETAILS && movieForDialog && (
+        <MovieDetailsDialog
+          movie={movieForDialog}
+          mode={MovieDetailsDialogMode.EDIT}
+          open={dialogMode === DialogMode.DETAILS}
+          submit={saveMovie}
+          close={hideDialog}
+        />
+      )}
+      {dialogMode === DialogMode.DELETE && movieForDialog && (
+        <DeleteMovieDialog
+          movie={movieForDialog}
+          open={dialogMode === DialogMode.DELETE}
+          submit={deleteMovie}
+          close={hideDialog}
+        />
+      )}
+    </>
+  );
 }

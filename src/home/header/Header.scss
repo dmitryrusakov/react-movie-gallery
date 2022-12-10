@@ -1,14 +1,15 @@
 .header {
-  height: 18em;
+  height: 20em;
   overflow: hidden;
+  background-color: #232323;
 
   .bg {
     background-image: url('../../../public/home-header-bg.png');
     mix-blend-mode: normal;
     opacity: 0.3;
-    filter: blur(4.07742px);
+    filter: blur(6px);
     position: absolute;
-    height: 24em;
+    height: 26em;
     width: 100%;
     top: -6em;
   }

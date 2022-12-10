@@ -1,4 +1,5 @@
 .movie-card {
+  cursor: pointer;
   position: relative;
 
   // This hack allows to open a menu right where the button is after click.
@@ -62,6 +63,7 @@
 
   .genre-tags {
     text-align: left;
+    text-transform: capitalize;
     font-size: 11px;
     color: #ffffff;
     mix-blend-mode: normal;

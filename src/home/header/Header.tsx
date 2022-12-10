@@ -4,7 +4,7 @@ import './Header.scss';
 import Search from './search/Search';
 import MovieDetailsDialog, {
   MovieDetailsDialogMode,
-} from '../movie-details/MovieDetailsDialog';
+} from '../movie-details-dialog/MovieDetailsDialog';
 import {MovieModel} from '../../models/movie';
 
 interface IState {
