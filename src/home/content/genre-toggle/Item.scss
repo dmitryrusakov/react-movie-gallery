@@ -1,0 +1,13 @@
+.genre-item {
+  padding: 20px;
+  cursor: pointer;
+  color: white;
+  text-transform: capitalize;
+  border-bottom: 2px solid transparent;
+}
+.genre-item:hover {
+  border-bottom: 2px solid lighten(#f65261, 10%);
+}
+.genre-item.active {
+  border-bottom: 2px solid #f65261;
+}

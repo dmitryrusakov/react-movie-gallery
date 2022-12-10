@@ -1,0 +1,17 @@
+.sort {
+  display: flex;
+  align-items: center;
+
+  label {
+    width: 6em;
+    text-transform: uppercase;
+    color: white;
+    opacity: 60%;
+  }
+
+  .select {
+    margin-left: 1em;
+    color: white;
+    width: 10em;
+  }
+}

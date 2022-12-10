@@ -1,0 +1,26 @@
+.movie-details {
+  .left {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .right {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .left > *,
+  .right > * {
+    margin-bottom: 15px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .bottom {
+    .overview-textarea {
+      width: 100%;
+    }
+  }
+}

@@ -1,0 +1,27 @@
+.search-form-wrapper {
+  display: flex;
+  align-content: center;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.search-form-wrapper .search-textfield {
+  width: 100%;
+
+  .search-input {
+    color: white;
+  }
+
+  .search-label {
+    color: white;
+    opacity: 0.3;
+  }
+}
+
+.search-form-wrapper .search-button {
+  margin-left: 1em;
+  background-color: #f65261;
+  color: white;
+  padding: 0.5em 4em;
+  border: none;
+}

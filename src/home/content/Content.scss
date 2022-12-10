@@ -1,0 +1,14 @@
+.content {
+  padding: 0 2em 2em;
+
+  .content-header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .movies-found {
+    margin: 1em 0;
+    color: white;
+    text-align: left;
+  }
+}
