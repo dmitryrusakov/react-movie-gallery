@@ -1,4 +1,4 @@
-export type Genre = 'comedy' | 'crime' | 'documentary' | 'horror';
+export type Genre = '' | 'comedy' | 'crime' | 'documentary' | 'horror';
 
 export interface IGenre {
   label: string;
@@ -7,6 +7,9 @@ export interface IGenre {
 
 export const GENRES: IGenre[] = [
   {
+    label: 'All',
+    value: '',
+  }, {
     label: 'Comedy',
     value: 'comedy',
   }, {
@@ -15,7 +18,6 @@ export const GENRES: IGenre[] = [
   }, {
     label: 'Documenraty',
     value: 'documentary',
-
   }, {
     label: 'Horror',
     value: 'horror',

@@ -1,11 +1,17 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './Content.scss';
 import Sort from './sort/Sort';
 import GenreToggle from './genre-toggle/GenreToggle';
 import Gallery from './gallery/Gallery';
+import {IMovieData, MovieModel} from '../../models/movie';
+import {useAppSelector} from '../../app/hooks';
 
 export default function Content() {
-  const [moviesFound] = useState(10);
+  const moviesData = useAppSelector((state) => state.movies.moviesData);
+  const movies = moviesData.map(
+    (movieData: IMovieData) => new MovieModel(movieData)
+  );
+
   return (
     <div className="content">
       <div className="content-header">
@@ -13,10 +19,10 @@ export default function Content() {
         <Sort />
       </div>
       <div className="movies-found">
-        <b>{moviesFound}</b> movie
-        {moviesFound === 1 ? '' : 's'} found
+        <b>{movies.length}</b> movie
+        {movies.length === 1 ? '' : 's'} found
       </div>
-      <Gallery />
+      <Gallery movies={movies} />
     </div>
   );
 }

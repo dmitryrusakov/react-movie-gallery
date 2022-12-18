@@ -1,12 +1,12 @@
-import React, {useState, useContext} from 'react';
+import React, {useState} from 'react';
 import './MovieCard.scss';
 import PT from 'prop-types';
 import {MoviePropTypes} from '../../../models/movie';
 import {Menu, MenuItem, IconButton} from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import {HeaderMovieContext} from '../../../models/context';
 import {MovieModel} from '../../../models/movie';
-import {executeInTheNextEventLoopTick} from '@mui/x-date-pickers/internals';
+import {useAppDispatch} from '../../../app/hooks';
+import {selectedMovie} from '../../../features/selected-movie-slice';
 
 export const propTypes = {
   openDetails: PT.func.isRequired,
@@ -18,7 +18,8 @@ export default function MovieCard(props: PT.InferProps<typeof propTypes>) {
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLButtonElement | null>(
     null
   );
-  const headerMovieContext = useContext(HeaderMovieContext);
+
+  const dispatch = useAppDispatch();
 
   const openMenuOnClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -41,7 +42,7 @@ export default function MovieCard(props: PT.InferProps<typeof propTypes>) {
     closeMenu();
   };
   const setMovieForHeaderDetails = (movie: MovieModel) => {
-    headerMovieContext?.setMovie(movie);
+    dispatch(selectedMovie(movie.toMovieData()));
   };
 
   let menuIsOpen = Boolean(menuAnchorEl);

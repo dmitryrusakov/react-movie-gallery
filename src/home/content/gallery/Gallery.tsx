@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {Grid} from '@mui/material';
 import MovieCard from './MovieCard';
-import {sampleMovies as movies} from '../../../models/movie';
+import PT from 'prop-types';
+import {MoviePropTypes} from '../../../models/movie';
 import {MovieModel} from '../../../models/movie';
 import MovieDetailsDialog, {
   MovieDetailsDialogMode,
@@ -19,7 +20,11 @@ enum DialogMode {
   DELETE = 3,
 }
 
-export default function Gallery() {
+export const propTypes = {
+  movies: PT.arrayOf(PT.shape(MoviePropTypes)).isRequired,
+};
+
+export default function Gallery(props: PT.InferProps<typeof propTypes>) {
   const [dialogMode, setDialogMode] = useState(DialogMode.HIDDEN);
   const [movieForDialog, setMovieForDialog] = useState<MovieModel>();
   const saveMovie = (movie: MovieModel) => {
@@ -46,7 +51,7 @@ export default function Gallery() {
   return (
     <>
       <Grid container spacing={4}>
-        {movies.map((movie) => (
+        {(props.movies as MovieModel[]).map((movie: MovieModel) => (
           <Grid item xs={6} sm={4} md={3} lg={2} key={movie.id}>
             <MovieCard
               movie={movie}

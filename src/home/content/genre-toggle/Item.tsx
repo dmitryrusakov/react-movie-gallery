@@ -5,7 +5,7 @@ import './Item.scss';
 const propTypes = {
   onSelectGenre: PT.func.isRequired,
   isActive: PT.bool.isRequired,
-  itemId: PT.number.isRequired,
+  itemId: PT.string.isRequired,
   title: PT.string.isRequired,
 };
 

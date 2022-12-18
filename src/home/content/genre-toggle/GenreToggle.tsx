@@ -1,33 +1,29 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './GenreToggle.scss';
 import Item from './Item';
+import {GENRES, Genre} from '../../../models/genre';
+import {useAppSelector, useAppDispatch} from '../../../app/hooks';
+import {selectGenre} from '../../../features/ui-search-params-slice';
 
-const GENRES = [
-  {id: 1, value: 'all'},
-  {id: 2, value: 'documentary'},
-  {id: 3, value: 'comedy'},
-  {id: 4, value: 'horror'},
-  {id: 5, value: 'crime'},
-];
-
-export default class GenreToggle extends React.Component {
-  state = {activeGenre: 1};
-  selectGenre = (genreId: string) => {
-    this.setState({activeGenre: genreId});
+export default function GenreToggle() {
+  const activeGenre = useAppSelector(
+    (state) => state.uiSearchParams.selectedGenre
+  );
+  const dispatch = useAppDispatch();
+  const handleSelectGenre = (genreValue: Genre) => {
+    dispatch(selectGenre(genreValue));
   };
-  render() {
-    return (
-      <div className="genre-list">
-        {GENRES.map((g) => (
-          <Item
-            key={g.id}
-            isActive={this.state.activeGenre === g.id}
-            itemId={g.id}
-            title={g.value}
-            onSelectGenre={this.selectGenre}
-          />
-        ))}
-      </div>
-    );
-  }
+  return (
+    <div className="genre-list">
+      {GENRES.map((g) => (
+        <Item
+          key={g.value}
+          isActive={activeGenre === g.value}
+          itemId={g.value}
+          title={g.label}
+          onSelectGenre={handleSelectGenre}
+        />
+      ))}
+    </div>
+  );
 }

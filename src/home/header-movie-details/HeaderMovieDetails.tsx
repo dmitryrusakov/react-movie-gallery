@@ -1,14 +1,17 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import './HeaderMovieDetails.scss';
-import {HeaderMovieContext} from '../../models/context';
 import {Grid, IconButton} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import {useAppDispatch, useAppSelector} from '../../app/hooks';
+import {selectedMovie} from '../../features/selected-movie-slice';
+import {MovieModel} from '../../models/movie';
 
 export default function HeaderMovieDetails() {
-  const headerMovieContext = useContext(HeaderMovieContext);
-  const movie = headerMovieContext?.movie;
+  const movieData = useAppSelector((state) => state.selectedMovie.movieData);
+  const movie = new MovieModel(movieData);
+  const dispatch = useAppDispatch();
   const closeDetails = () => {
-    headerMovieContext?.setMovie(null);
+    dispatch(selectedMovie(null));
   };
   const convertMinsToHrsMins = (mins = 0) => {
     let h = Math.floor(mins / 60);
